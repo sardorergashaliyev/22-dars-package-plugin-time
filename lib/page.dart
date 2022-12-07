@@ -9,9 +9,9 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   String selectedTime = '';
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,13 +22,21 @@ class _MyWidgetState extends State<MyWidget> {
           ),
           ElevatedButton(
             onPressed: () {
-              showTimePicker(
+              showDatePicker(
                 context: context,
-                initialTime: TimeOfDay.now(),
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now().subtract(
+                  const Duration(days: 365 * 10),
+                ),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
               ).then((value) {
                 selectedTime =
-                    "${value?.hour ?? TimeOfDay.now().hour} : ${value?.minute ?? TimeOfDay.now().minute}";
-                setState(() {});
+                    "${value?.year ?? 0}.${value?.month ?? 0}.${value?.day ?? 0}";
+                    setState(() {
+                      
+                    });
               });
             },
             child: Text(
